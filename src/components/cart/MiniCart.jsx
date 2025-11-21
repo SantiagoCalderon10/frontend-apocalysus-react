@@ -1,6 +1,10 @@
 import { useCart } from "../../context/CartContext";
 import styles from "./MiniCart.module.css";
 import Swal from "sweetalert2";
+import { BsFillTrash3Fill } from "react-icons/bs";
+import { FaPlus, FaMinus } from "react-icons/fa";
+
+
 
 export default function MiniCart({ open, close }) {
   const { cart, loading, updateQuantity, removeFromCart, clearCart } =
@@ -75,9 +79,8 @@ export default function MiniCart({ open, close }) {
                       onClick={() =>
                         updateQuantity(p.idProducto, p.cantidad - 1)
                       }
-                    >
-                      {" "}
-                      -{" "}
+                    > <FaMinus />
+
                     </button>
                     <input
                       type="number"
@@ -94,8 +97,8 @@ export default function MiniCart({ open, close }) {
                       }
                       className={styles.cambioCantidad}
                     >
-                      {" "}
-                      +{" "}
+                      <FaPlus />
+
                     </button>
                   </div>
                 </div>
@@ -104,7 +107,8 @@ export default function MiniCart({ open, close }) {
                   className={styles.removeBtn}
                   onClick={() => removeFromCart(p.idProducto)}
                 >
-                  X
+                  <BsFillTrash3Fill />
+
                 </button>
               </div>
             ))}

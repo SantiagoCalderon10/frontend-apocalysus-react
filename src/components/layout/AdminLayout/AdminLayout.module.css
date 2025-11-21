@@ -93,3 +93,7 @@ position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
 }
+
+.btnIngreso a {
+  text-decoration: none;
+}

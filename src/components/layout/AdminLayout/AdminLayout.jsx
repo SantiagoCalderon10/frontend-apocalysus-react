@@ -3,6 +3,7 @@ import styles from "./AdminLayout.module.css";
 import { FaBox, FaShoppingCart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import React from "react";
+import { BsClipboardMinusFill } from "react-icons/bs";
 
 const AdminLayout = () => {
   return (
@@ -26,7 +27,8 @@ const AdminLayout = () => {
                   isActive ? styles.active : undefined
                 }
               >
-                <FaBox /> Principal
+                <BsClipboardMinusFill />
+                Principal
               </NavLink>
             </li>
             <li>
