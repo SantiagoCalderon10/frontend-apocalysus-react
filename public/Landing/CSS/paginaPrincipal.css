@@ -1,0 +1,765 @@
+:root {
+  --primary-orange: #ff6600;
+  --secondary-orange: #ff9500;
+  --accent-orange: #c37d22;
+  --dark-bg: #0a0a0a;
+  --darker-bg: #050505;
+  --card-bg: rgba(20, 20, 20, 0.9);
+  --text-light: #ffffff;
+  --text-gray: #b9bbbd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background: var(--dark-bg);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* ========== FONDO ANIMADO GLOBAL ========== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      ellipse at 20% 30%,
+      rgba(255, 102, 0, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      rgba(255, 149, 0, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(195, 125, 34, 0.08) 0%,
+      transparent 60%
+    );
+  animation: backgroundPulse 15s ease-in-out infinite;
+  z-index: -2;
+  pointer-events: none;
+}
+
+@keyframes backgroundPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Partículas flotantes */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      2px 2px at 20% 30%,
+      rgba(255, 149, 0, 0.3),
+      transparent
+    ),
+    radial-gradient(2px 2px at 60% 70%, rgba(255, 102, 0, 0.3), transparent),
+    radial-gradient(1px 1px at 50% 50%, rgba(195, 125, 34, 0.3), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(255, 149, 0, 0.3), transparent),
+    radial-gradient(2px 2px at 90% 60%, rgba(255, 102, 0, 0.3), transparent);
+  background-size: 200% 200%;
+  animation: particles 20s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes particles {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+  background: rgba(10, 10, 10, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.navbar:hover {
+  border-bottom-color: rgba(255, 102, 0, 0.5);
+}
+
+#eslogan-apocalyisus {
+  font-family: "Anton", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(
+    180deg,
+    var(--primary-orange) 0%,
+    var(--secondary-orange) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: all 0.3s ease;
+}
+
+#eslogan-apocalyisus:hover {
+  letter-spacing: 5px;
+  transform: scale(1.05);
+}
+
+.nav-item a {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: var(--text-gray) !important;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-item a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-orange),
+    var(--secondary-orange)
+  );
+  transition: width 0.3s ease;
+}
+
+.nav-item a:hover {
+  color: var(--secondary-orange) !important;
+  transform: translateY(-2px);
+}
+
+.nav-item a:hover::after {
+  width: 100%;
+}
+
+.btn-ingreso {
+  border-radius: 25px;
+  color: white !important;
+  background: linear-gradient(
+    135deg,
+    var(--primary-orange),
+    var(--accent-orange)
+  ) !important;
+  border: none;
+  padding: 8px 25px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-ingreso::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn-ingreso:hover::before {
+  left: 100%;
+}
+
+.btn-ingreso:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+}
+
+/* ========== HERO SECTION ========== */
+.hero {
+  background-size: cover;
+  background-position: center;
+  color: var(--text-light);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  z-index: 0;
+}
+
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(10, 10, 10, 0.6) 100%
+  );
+  z-index: 1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--dark-bg));
+  z-index: 2;
+}
+
+#hero-content {
+  position: relative;
+  z-index: 3;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero h1 {
+  font-family: "Anton", sans-serif;
+  font-size: 4.5rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    to bottom,
+    var(--text-light),
+    var(--secondary-orange)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba(255, 102, 0, 0.5);
+  margin-bottom: 1rem;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 20px rgba(255, 102, 0, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 40px rgba(255, 149, 0, 0.8));
+  }
+}
+
+.hero p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: var(--text-gray);
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.btn-explora {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  border-radius: 30px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-orange),
+    var(--accent-orange)
+  );
+  color: white;
+  border: 2px solid transparent;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.btn-explora::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-explora:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-explora:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 102, 0, 0.8);
+  border-color: var(--secondary-orange);
+}
+
+/* ========== SECCIONES CON FONDO ANIMADO ========== */
+.sectioncrossfit {
+  position: relative;
+  background: var(--dark-bg);
+  padding: 80px 20px;
+  overflow: hidden;
+}
+
+.sectioncrossfit::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+      circle at 30% 50%,
+      rgba(255, 102, 0, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(255, 149, 0, 0.06) 0%,
+      transparent 50%
+    );
+  animation: rotateBackground 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotateBackground {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.sectioncrossfit > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ========== FEATURES ========== */
+.features {
+  background-color: transparent;
+}
+
+.features-row {
+  gap: 2rem;
+  justify-content: center;
+}
+
+.features-item {
+  position: relative;
+  width: 320px;
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  color: var(--text-light);
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 102, 0, 0.2);
+  overflow: hidden;
+}
+
+.features-item::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  background: linear-gradient(
+    45deg,
+    var(--primary-orange),
+    var(--secondary-orange),
+    var(--accent-orange),
+    var(--primary-orange)
+  );
+  background-size: 300% 300%;
+  border-radius: 20px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: borderFlow 3s linear infinite;
+}
+
+@keyframes borderFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.features-item:hover::before {
+  opacity: 1;
+}
+
+.features-item:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 102, 0, 0.4);
+}
+
+.features i {
+  font-size: 3rem;
+  color: var(--secondary-orange);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.features-item:hover i {
+  transform: scale(1.2) rotate(10deg);
+  color: var(--primary-orange);
+}
+
+.features-item h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(
+    135deg,
+    var(--text-light),
+    var(--secondary-orange)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.features-item p {
+  font-size: 1rem;
+  color: var(--text-gray);
+  line-height: 1.6;
+}
+
+/* ========== PRODUCTOS ========== */
+.container-productos {
+  max-width: 1200px;
+}
+
+.store-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  margin-bottom: 50px;
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    var(--text-light),
+    var(--secondary-orange)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.space-store {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(10px);
+  width: 280px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(255, 102, 0, 0.4);
+  border-color: var(--secondary-orange);
+}
+
+.card-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-image {
+  transform: scale(1.1);
+}
+
+.card-body {
+  padding: 1.5rem;
+  background: rgba(10, 10, 10, 0.6);
+}
+
+.card-title {
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  color: var(--secondary-orange);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.btn-compra {
+  background: linear-gradient(
+    135deg,
+    var(--primary-orange),
+    var(--accent-orange)
+  );
+  border: none;
+  border-radius: 25px;
+  padding: 10px 30px;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-compra:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(255, 102, 0, 0.5);
+  background: linear-gradient(
+    135deg,
+    var(--secondary-orange),
+    var(--primary-orange)
+  );
+}
+
+/* ========== MISIÓN Y VISIÓN ========== */
+.mision-vision {
+  background: transparent;
+  padding: 80px 20px;
+}
+
+.section-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  margin-bottom: 50px;
+  font-weight: 800;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    var(--text-light),
+    var(--secondary-orange)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cards-mv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.card-mv {
+  background: var(--card-bg);
+  color: var(--text-light);
+  padding: 40px 30px;
+  border-radius: 20px;
+  flex: 1 1 350px;
+  max-width: 450px;
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-mv::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 149, 0, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.card-mv:hover::before {
+  left: 100%;
+}
+
+.card-mv:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(255, 102, 0, 0.4);
+  border-color: var(--secondary-orange);
+}
+
+.card-mv h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--secondary-orange);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.card-mv p {
+  font-size: 1.1rem;
+  color: var(--text-gray);
+  line-height: 1.8;
+}
+
+/* ========== CONTACTO ========== */
+#contacto {
+  background: transparent;
+}
+
+#contacto h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 50px;
+  background: linear-gradient(
+    135deg,
+    var(--text-light),
+    var(--secondary-orange)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#contacto .form-control {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 102, 0, 0.3);
+  border-radius: 10px;
+  color: var(--text-light);
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+#contacto .form-control:focus {
+  background: rgba(20, 20, 20, 0.95);
+  border-color: var(--secondary-orange);
+  box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+  color: var(--text-light);
+}
+
+#contacto .form-control::placeholder {
+  color: rgba(185, 187, 189, 0.5);
+}
+
+#contacto button[type="submit"] {
+  background: linear-gradient(
+    135deg,
+    var(--primary-orange),
+    var(--accent-orange)
+  );
+  border: none;
+  border-radius: 25px;
+  padding: 12px 40px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+#contacto button[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 102, 0, 0.5);
+}
+
+/* ========== FOOTER ========== */
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .section-title,
+  .store-title,
+  #contacto h2 {
+    font-size: 2rem;
+  }
+
+  .features-item,
+  .card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .card-mv {
+    max-width: 100%;
+  }
+}
+
+footer {
+  background: rgba(5, 5, 5, 0.95);
+  color: var(--text-gray);
+  padding: 30px 0;
+  border-top: 1px solid rgba(255, 102, 0, 0.3);
+  margin-top: 80px !important;
+  text-align: center;
+}

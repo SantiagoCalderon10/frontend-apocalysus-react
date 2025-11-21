@@ -1,0 +1,486 @@
+    /* ========================================
+   ABOUT.MODULE.CSS - ESTILOS APOCALYSUS
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.about-container {
+  background-color: #0a0a0a;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero-section {
+  background-image: url("../../../public/Landing/IMG/hero2Apocalysus.jpeg");
+  position: relative;
+  height: 60vh;
+  min-height: 500px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+
+.hero-overlay {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+.logo-hero {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.logo-circle-hero {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(249, 115, 22, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgba(249, 115, 22, 0.8);
+  }
+}
+
+.scorpion-icon {
+  font-size: 3rem;
+}
+
+.hero-title {  
+  font-family: 'Anton', sans-serif;
+  font-size: 3rem;
+  background:  linear-gradient(to bottom, #ffffff, #ff9500);
+   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  letter-spacing: 3px;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #d1d5db;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   CARDS SECTION (Origen, Misión, Visión)
+   ======================================== */
+
+.cards-section {
+  padding: 6rem 2rem;
+  background-color: #0a0a0a;
+}
+
+.cards-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.info-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border: 1px solid #2a2a2a;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-10px);
+  border-color: #f97316;
+  box-shadow: 0 10px 40px rgba(249, 115, 22, 0.3);
+}
+
+.info-card:hover::before {
+  transform: scaleX(1);
+}
+
+.card-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-icon.orange {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.card-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #9ca3af;
+}
+
+/* ========================================
+   STATS SECTION (Estadísticas)
+   ======================================== */
+
+.stats-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+
+.stats-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   VALORES SECTION
+   ======================================== */
+
+.valores-section {
+  padding: 6rem 2rem;
+  background-color: #0a0a0a;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #f97316;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.valores-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.valor-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.valor-card:hover {
+  border-color: #f97316;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2);
+}
+
+.valor-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.valor-title {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+}
+
+.valor-text {
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+/* ========================================
+   CONTACT SECTION
+   ======================================== */
+
+.contact-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.contact-info {
+  padding-right: 2rem;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #f97316;
+  margin-bottom: 1.5rem;
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  color: #9ca3af;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.contact-item h4 {
+  color: #ffffff;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.contact-item p {
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+/* ========================================
+   CONTACT FORM
+   ======================================== */
+
+.contact-form-wrapper {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 1rem;
+  padding: 2.5rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  background-color: #0a0a0a;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1rem;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-message {
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 968px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .contact-info {
+    padding-right: 0;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .contact-title {
+    font-size: 2rem;
+  }
+
+  .valores-grid {
+    grid-template-columns: 1fr;
+  }
+}
