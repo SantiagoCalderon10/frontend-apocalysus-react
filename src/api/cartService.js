@@ -1,5 +1,5 @@
 // src/api/cartService.js
-import axiosInstance from "./axiosConfig";
+import axiosInstance from "./config/axiosConfig";
 
 const cartService = {
   // GET /api/carrito/{idUsuario} - Obtener carrito del usuario

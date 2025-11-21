@@ -3,10 +3,10 @@ import styles from "./MiniCart.module.css";
 import Swal from "sweetalert2";
 
 export default function MiniCart({ open, close }) {
-  const { cart, loading, updateQuantity, removeFromCart, clearCart } = useCart();
+  const { cart, loading, updateQuantity, removeFromCart, clearCart } =
+    useCart();
 
   const confirmClearCart = async (idUsuario) => {
-
     Swal.fire({
       title: "¿Estás seguro de qué quieres vaciar el carrito?",
       icon: "warning",
@@ -15,28 +15,26 @@ export default function MiniCart({ open, close }) {
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, vaciar",
       cancelButtonText: "Cancelar",
-    }      
-    ).then(async (result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-      await clearCart(idUsuario);
-      Swal.fire({
-          title: "¡Se ha limpiado el carrito!",
-        icon: "success",
-      });
-    } catch (error) {
-      Swal.fire({
-        title: "¡Oh, oh, ha ocurrido un error!",
-        text: "Regresa",
-        icon: "error",
-      });
-    }
-      }else{
-        return
+          await clearCart(idUsuario);
+          Swal.fire({
+            title: "¡Se ha limpiado el carrito!",
+            icon: "success",
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "¡Oh, oh, ha ocurrido un error!",
+            text: "Regresa",
+            icon: "error",
+          });
+        }
+      } else {
+        return;
       }
-    
-    
-    });  };
+    });
+  };
 
   return (
     <div
@@ -67,7 +65,10 @@ export default function MiniCart({ open, close }) {
 
                 <div className={styles.itemInfo}>
                   <span className={styles.itemName}>{p.nombre}</span>
-                  <span className={styles.itemPrice}>${p.subtotal}</span>
+                  <span className={styles.itemPrice}>
+                    {" "}
+                    ${p.subtotal?.toLocaleString("es-CO")}
+                  </span>
                   <div className={styles.valores}>
                     <button
                       className={styles.cambioCantidad}
@@ -103,7 +104,7 @@ export default function MiniCart({ open, close }) {
                   className={styles.removeBtn}
                   onClick={() => removeFromCart(p.idProducto)}
                 >
-                  <i className="bi bi-trash"></i>
+                  X
                 </button>
               </div>
             ))}
@@ -111,9 +112,16 @@ export default function MiniCart({ open, close }) {
         )}
 
         <div className={styles.footer}>
-          <p className={styles.total}>Total: ${cart.total}</p>
+          <p className={styles.total}>
+            Total: ${cart.total?.toLocaleString("es-CO")}
+          </p>
           <button className={styles.payBtn}>Ir a pagar</button>
-          <button className={styles.emptyCart} onClick={() => confirmClearCart(3)  }>Vaciar Carrito</button>
+          <button
+            className={styles.emptyCart}
+            onClick={() => confirmClearCart(3)}
+          >
+            Vaciar Carrito
+          </button>
         </div>
       </div>
     </div>

@@ -46,7 +46,9 @@
   opacity: 1;
   pointer-events: auto;
 }
-
+.empty{
+  color: var(--text-gray);
+}
 /* === TITULO === */
 .title {
   font-size: 20px;

@@ -107,7 +107,7 @@ export const Home = () => {
           <div className={styles.cardBody}>
             <h5>Producto 3</h5>
             <p>$85.000</p>
-            <a href="#" className={styles.buyBtn}>Comprar</a>
+            <a href="/shop" className={styles.buyBtn}>Comprar</a>
           </div>
         </div>
 

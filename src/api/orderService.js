@@ -1,5 +1,5 @@
 // src/api/orderService.js
-import axiosInstance from './axiosConfig';
+import axiosInstance from './config/axiosConfig';
 
 const orderService = {
   // Crear nuevo pedido (checkout)
@@ -33,9 +33,9 @@ const orderService = {
   },
 
   // Obtener todos los pedidos (ADMIN)
-  getAllOrders: async (params = {}) => {
+  getAllOrders: async () => {
     try {
-      const response = await axiosInstance.get('/orders', { params });
+      const response = await axiosInstance.get('/pedidos');
       return response.data;
     } catch (error) {
       throw error;

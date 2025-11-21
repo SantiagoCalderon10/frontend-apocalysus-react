@@ -633,6 +633,9 @@ const styles = {
     cursor: "pointer",
     transition: "all 0.3s ease",
   },
+
+
+  
   addToCartBtnDisabled: {
     background: "rgba(100, 100, 100, 0.5)",
     cursor: "not-allowed",

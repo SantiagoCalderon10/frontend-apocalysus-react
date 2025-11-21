@@ -6,7 +6,6 @@ import React from "react";
 
 const AdminLayout = () => {
   return (
-    
     <div className={styles.container}>
       {/* Sidebar */}
       <aside className={styles.sidebar}>
@@ -17,10 +16,19 @@ const AdminLayout = () => {
           alt="logoApocalysus"
         />
         <h2 className={styles.title}>Panel Admin</h2>
-        
 
         <nav>
           <ul className={styles.menu}>
+            <li>
+              <NavLink
+                to="/admin/dashboard"
+                className={({ isActive }) =>
+                  isActive ? styles.active : undefined
+                }
+              >
+                <FaBox /> Principal
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 to="/admin/productos"
@@ -43,7 +51,7 @@ const AdminLayout = () => {
               </NavLink>
             </li>
             <li>
-               <NavLink
+              <NavLink
                 to="/admin/usuarios"
                 className={({ isActive }) =>
                   isActive ? styles.active : undefined
@@ -55,10 +63,10 @@ const AdminLayout = () => {
           </ul>
 
           <li className="nav-item">
-              <a className={`btn ms-2 ${styles.btnIngreso}`} href="/shop">
-                Regresar
-              </a>
-            </li>
+            <a className={`btn ms-2 ${styles.btnIngreso}`} href="/shop">
+              Regresar
+            </a>
+          </li>
         </nav>
       </aside>
 

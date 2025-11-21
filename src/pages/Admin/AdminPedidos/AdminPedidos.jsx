@@ -1,10 +1,11 @@
-import React from "react";
-import AdminLayout from "../../../components/layout/AdminLayout/AdminLayout";
-function AdminPedidos() {
+import React from 'react'
+
+export const PedidosAdmin = () => {
   return (
-    <div>
-      <h1>Admin Pedidos</h1>
-    </div>
-  );
+    <h1>Pedidos Admin</h1>
+  )
 }
-export default AdminPedidos;
+
+
+export default PedidosAdmin;
+

@@ -9,10 +9,12 @@ import AdminLayout from "./components/layout/AdminLayout/AdminLayout";
 import ProductosAdmin from "./pages/Admin/AdminProductos/AdminProducts.jsx";
 import PedidosAdmin from "./pages/Admin/AdminPedidos/AdminPedidos.jsx";
 import UsuariosAdmin from "./pages/Admin/AdminUsuario/AdminUsuario.jsx";
+import AdminPrincipal from "./pages/Admin/AdminPrincipal.jsx"
 import { Footer } from "./components/layout/Footer/Footer";
 import { Outlet } from "react-router-dom";
 import AboutClub from "./pages/About/AboutClub.jsx";
 import Home from "./pages/home/Home.jsx";
+import AdminDashboard from "./pages/Admin/AdminPrincipal.jsx";
 // Layout público (Navbar + Footer)
 function PublicLayout() {
   return (
@@ -42,9 +44,13 @@ function App() {
 
           {/* RUTAS ADMIN (sin navbar) */}
           <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />{" "}
+            {/* Ruta por defecto */}
             <Route path="usuarios" element={<UsuariosAdmin />} />
             <Route path="productos" element={<ProductosAdmin />} />
             <Route path="pedidos" element={<PedidosAdmin />} />
+                        <Route path="dashboard" element={<AdminDashboard />} />
+
           </Route>
         </Routes>
       </BrowserRouter>
