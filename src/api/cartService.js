@@ -50,15 +50,19 @@ const cartService = {
   // DELETE /api/carrito/{idUsuario}/eliminar - Eliminar producto del carrito
   removeFromCart: async (idUsuario = 3, idProducto) => {
     try {
-      const response = await axiosInstance.delete(
-        `/carrito/${idUsuario}/eliminar`,
-        {
-          params: { idProducto },
-        }
-      );
+      console.log("idUsuario:", idUsuario, "idProducto:", idProducto);
+
+      const response = await axiosInstance({
+        method: "delete",
+        url: `/carrito/${idUsuario}/eliminar`,
+        params: { idProducto },
+      });
+
+
       return response.data;
     } catch (error) {
       alert("Error al eliminar del carrito:", error);
+      console.error(error)
       throw error;
     }
   },

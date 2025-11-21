@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./AboutClub.css";
+import logo from "../../logo.svg";
+
 
 // About.jsx
 export default function AboutClub() {
@@ -46,7 +48,7 @@ export default function AboutClub() {
             <div className="hero-content">
               <div className="logo-hero">
                 <div className="logo-circle-hero">
-                  <span className="scorpion-icon">🦂</span>
+                  <span className="scorpion-icon"><img src={logo} alt="" /></span>
                 </div>
               </div>
               <h1 className="hero-title">BIENVENIDO A APOCALYSUS</h1>

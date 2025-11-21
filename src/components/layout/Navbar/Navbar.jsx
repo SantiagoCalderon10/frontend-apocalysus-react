@@ -61,15 +61,7 @@ const Navbar = () => {
               </a>
             </li>
 
-            <li className="nav-item">
-              <a
-                className={`nav-link ${styles.navLink}`}
-                onClick={() => navigate("/about#contact")}
-              >
-                Contacto
-              </a>
-            </li>
-
+           
             <li className="nav-item">
               <a className={`btn ms-2 ${styles.btnIngreso}`} href="/admin">
                 Ingrese

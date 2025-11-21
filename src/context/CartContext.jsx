@@ -57,7 +57,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = async (idProducto) => {
     try {
       const data = await cartService.removeFromCart(userId, idProducto);
-      setCart(data);
+      setCart(normalizeCart(data));
     } catch (error) {
       console.error(error);
     }

@@ -1,8 +1,42 @@
 import { useCart } from "../../context/CartContext";
 import styles from "./MiniCart.module.css";
+import Swal from "sweetalert2";
 
 export default function MiniCart({ open, close }) {
-  const { cart, loading, updateQuantity, removeFromCart } = useCart();
+  const { cart, loading, updateQuantity, removeFromCart, clearCart } = useCart();
+
+  const confirmClearCart = async (idUsuario) => {
+
+    Swal.fire({
+      title: "¿Estás seguro de qué quieres vaciar el carrito?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, vaciar",
+      cancelButtonText: "Cancelar",
+    }      
+    ).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+      await clearCart(idUsuario);
+      Swal.fire({
+          title: "¡Se ha limpiado el carrito!",
+        icon: "success",
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "¡Oh, oh, ha ocurrido un error!",
+        text: "Regresa",
+        icon: "error",
+      });
+    }
+      }else{
+        return
+      }
+    
+    
+    });  };
 
   return (
     <div
@@ -34,23 +68,42 @@ export default function MiniCart({ open, close }) {
                 <div className={styles.itemInfo}>
                   <span className={styles.itemName}>{p.nombre}</span>
                   <span className={styles.itemPrice}>${p.subtotal}</span>
-
-                  <input
-                    type="number"
-                    min={1}
-                    value={p.cantidad}
-                    onChange={(e) =>
-                      updateQuantity(p.idProducto, parseInt(e.target.value))
-                    }
-                    className={styles.quantity}
-                  />
+                  <div className={styles.valores}>
+                    <button
+                      className={styles.cambioCantidad}
+                      onClick={() =>
+                        updateQuantity(p.idProducto, p.cantidad - 1)
+                      }
+                    >
+                      {" "}
+                      -{" "}
+                    </button>
+                    <input
+                      type="number"
+                      min={0}
+                      value={p.cantidad}
+                      onChange={(e) =>
+                        updateQuantity(p.idProducto, parseInt(e.target.value))
+                      }
+                      className={styles.quantity}
+                    />
+                    <button
+                      onClick={() =>
+                        updateQuantity(p.idProducto, p.cantidad + 1)
+                      }
+                      className={styles.cambioCantidad}
+                    >
+                      {" "}
+                      +{" "}
+                    </button>
+                  </div>
                 </div>
 
                 <button
                   className={styles.removeBtn}
                   onClick={() => removeFromCart(p.idProducto)}
                 >
-                  ✕
+                  <i className="bi bi-trash"></i>
                 </button>
               </div>
             ))}
@@ -60,6 +113,7 @@ export default function MiniCart({ open, close }) {
         <div className={styles.footer}>
           <p className={styles.total}>Total: ${cart.total}</p>
           <button className={styles.payBtn}>Ir a pagar</button>
+          <button className={styles.emptyCart} onClick={() => confirmClearCart(3)  }>Vaciar Carrito</button>
         </div>
       </div>
     </div>

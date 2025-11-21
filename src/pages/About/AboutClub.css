@@ -19,7 +19,6 @@
    ======================================== */
 
 .hero-section {
-  background-image: url("../../../public/Landing/IMG/hero2Apocalysus.jpeg");
   position: relative;
   height: 60vh;
   min-height: 500px;
@@ -47,7 +46,6 @@
 .logo-circle-hero {
   width: 100px;
   height: 100px;
-  background: linear-gradient(135deg, #f97316, #ea580c);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -67,9 +65,6 @@
   }
 }
 
-.scorpion-icon {
-  font-size: 3rem;
-}
 
 .hero-title {  
   font-family: 'Anton', sans-serif;

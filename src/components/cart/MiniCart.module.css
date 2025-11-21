@@ -1,14 +1,15 @@
 /* === FONDO OSCURO DETRÁS DEL CARRITO === */
 .overlay {
+
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;          /* No bloquea clics */
+  pointer-events: none; /* No bloquea clics */
   z-index: 9990;
   opacity: 0;
-  transition: opacity .25s ease;
+  transition: opacity 0.25s ease;
 }
 
 .show {
@@ -36,7 +37,7 @@
   transform: translateY(-15px);
   opacity: 0;
   pointer-events: none;
-  transition: all .25s ease;
+  transition: all 0.25s ease;
   z-index: 9999;
 }
 
@@ -50,10 +51,15 @@
 .title {
   font-size: 20px;
   font-weight: 700;
-  background: linear-gradient(180deg, #ff6600, #ff3300);
+   background: linear-gradient(
+    180deg,
+    var(--primary-orange),
+    var(--secondary-orange)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 15px;
+  text-transform: uppercase;
 }
 
 /* === CONTENEDOR DE ITEMS === */
@@ -97,7 +103,7 @@
 
 .itemPrice {
   position: relative;
-  color: rgb(57, 214, 57);
+  color: rgb(140, 229, 140);
   font-size: 13px;
   opacity: 0.8;
   font-weight: 900;
@@ -107,11 +113,18 @@
 .quantity {
   width: 60px;
   padding: 6px;
+  text-decoration: none;
   background: #111;
   border: 1px solid #444;
   border-radius: 8px;
   color: white;
   font-size: 14px;
+}
+
+.quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* === BOTON ELIMINAR === */
@@ -122,7 +135,7 @@
   font-size: 20px;
   cursor: pointer;
   padding: 5px;
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .removeBtn:hover {
@@ -131,13 +144,17 @@
 
 /* === FOOTER === */
 .footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   margin-top: 15px;
   border-top: 1px solid #333;
   padding-top: 15px;
+  gap: 10px;
 }
 
 .total {
-  color: var(--accent-orange);
+  color: white;
   text-align: right;
   font-size: 18px;
   font-weight: bold;
@@ -146,9 +163,9 @@
 
 /* === BOTÓN PAGAR === */
 .payBtn {
-  width: 100%;
+  width: 33,3%;
 
-    border-radius: 25px !important;
+  border-radius: 25px !important;
   color: white !important;
   background: linear-gradient(
     135deg,
@@ -163,6 +180,72 @@
   transition: all 0.3s ease;
 }
 
-.payBtn:hover {
+.payBtn:hover, .emptyCart:hover, .detailCart:hover{
   transform: translateY(-2px);
+}
+
+.emptyCart {
+  width: 33,3%;
+  color: white;
+  border-radius: 25px !important;
+  background-color: rgb(196, 41, 41);
+  
+  border: none;
+  padding: 8px 25px !important;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.detailCart {
+  width: 33,3%; 
+
+  border-radius: 25px !important;
+  background-color: greenyellow;
+  border: none;
+  padding: 8px 25px !important;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+
+
+
+.cambioCantidad {
+  border-radius: 25px;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(
+    2deg,
+    var(--primary-orange),
+    var(--accent-orange)
+  ) !important;
+  font-weight: 900;
+  height: 30px;
+  width: 30px;
+}
+.overlay::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra vertical */
+    height: 8px; /* Alto de la barra horizontal */
+}
+
+/* 2. Estiliza la pista o el fondo */
+.overlay::-webkit-scrollbar-track {
+    background: #1a1a1a; /* Un color oscuro para el fondo */
+    border-radius: 10px;
+}
+
+/* 3. Estiliza el "pulgar" o la barra que se arrastra */
+.overlay:-webkit-scrollbar-thumb {
+    background: #ff5722; /* El color naranja de tu diseño */
+    border-radius: 10px;
+    border: 1px solid #ff5722; /* Asegura que el color se vea bien */
+}
+
+/* 4. Opcional: Estilo al pasar el ratón */
+.overlay::-webkit-scrollbar-thumb:hover {
+    background: #e64a19; 
 }
