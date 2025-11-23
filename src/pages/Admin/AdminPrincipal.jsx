@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./AdminPrincipal.module.css";
-import adminService from "./../../api/adminService";
+import adminService from "../../api/services/adminService";
 import { LoaderAP } from "./../../components/common/Loader/LoaderAP";
 
 export default function AdminDashboard() {

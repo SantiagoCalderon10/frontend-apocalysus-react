@@ -1,291 +1,308 @@
-/* ========================================
-   ORDER.MODULE.CSS - VERSIÓN SIMPLE
-   ======================================== */
+  /* ========================================
+    ORDER.MODULE.CSS - VERSIÓN SIMPLE
+    ======================================== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.container {
-  min-height: 100vh;
-  background-color: #0a0a0a;
-  padding: 120px 2rem 3rem 2rem; /* Padding top para evitar el navbar */
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* ========================================
-   TÍTULO
-   ======================================== */
-
-.title {
-  color: #ff6600;
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-/* ========================================
-   LOADING
-   ======================================== */
-
-.loading {
-  color: #ff6600;
-  text-align: center;
-  padding: 3rem;
-  font-size: 1.2rem;
-}
-
-/* ========================================
-   CARDS
-   ======================================== */
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-/* ========================================
-   TÍTULOS DE SECCIÓN
-   ======================================== */
-
-.sectionTitle {
-  color: #ffffff;
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  border-left: 4px solid #ff6600;
-  padding-left: 0.75rem;
-}
-
-/* ========================================
-   LISTA DE PRODUCTOS
-   ======================================== */
-
-.productsList {
-  width: 100%;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1rem 0;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #0f0f0f;
-  border-radius: 6px;
-  margin-bottom: 0.75rem;
-  border: 1px solid #1a1a1a;
-}
-
-.itemInfo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex: 1;
-}
-
-.itemName {
-  color: #ffffff;
-  font-weight: 500;
-}
-
-.itemImg{
-  width: 8rem;
-  height: 8rem;
-}
-
-.itemQty {
-  background-color: #ff6600;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  font-weight: bold;
-}
-
-.itemPrice {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-/* ========================================
-   TOTAL
-   ======================================== */
-
-.total {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  width: 50%;
-  background-color: #ff6600;
-  border-radius: 6px;
-  margin-top: 1rem;
-}
-
-.total > span:first-child {
-  color: #ffffff;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.totalAmount {
-  color: #ffffff;
-  font-size: 1.8rem;
-  font-weight: bold;
-}
-
-/* ========================================
-   INPUT
-   ======================================== */
-
-.input {
-  width: 100%;
-  background-color: #0a0a0a;
-  border: 1px solid #2a2a2a;
-  border-radius: 6px;
-  padding: 0.875rem;
-  color: #ffffff;
-  font-size: 1rem;
-}
-
-.input:focus {
-  outline: none;
-  border-color: #ff6600;
-}
-
-/* ========================================
-   MÉTODOS DE PAGO
-   ======================================== */
-
-.methods {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  justify-content: start !important;
-}
-
-.method {
-  background-color: #0a0a0a;
-  border: 2px solid #2a2a2a;
-  border-radius: 6px;
-  padding: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: #d1d5db;
-}
-
-.method:hover {
-  border-color: #3a3a3a;
-}
-
-.method input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  accent-color: #ff6600;
-}
-
-.method:has(input:checked) {
-  border-color: #ff6600;
-  background-color: rgba(255, 102, 0, 0.1);
-  color: #ffffff;
-}
-
-/* ========================================
-   BOTÓN CONFIRMAR
-   ======================================== */
-
-.confirmBtn {
-  width: 100%;
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 1.25rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-.confirmBtn:hover {
-  background-color: #ff7722;
-}
-
-.confirmBtn:active {
-  background-color: #ee5500;
-}
-
-/* ========================================
-   RESPONSIVE
-   ======================================== */
-
-@media (max-width: 768px) {
-  .container {
-    padding: 100px 1rem 2rem 1rem;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
+
+  .container {
+    min-height: 100vh;
+    background-color: var(--bg-dark);
+    padding: 120px 2rem 3rem 2rem; /* Padding top para evitar el navbar */
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ========================================
+    TÍTULO
+    ======================================== */
 
   .title {
-    font-size: 1.5rem;
+    color: #ff6600;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-align: center;
   }
 
+  /* ========================================
+    LOADING
+    ======================================== */
+
+  .loading {
+    color: #ff6600;
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+  }
+
+  /* ========================================
+    CARDS
+    ======================================== */
+
   .card {
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ========================================
+    TÍTULOS DE SECCIÓN
+    ======================================== */
+
+  .sectionTitle {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-left: 4px solid #ff6600;
+    padding-left: 0.75rem;
+  }
+
+  /* ========================================
+    LISTA DE PRODUCTOS
+    ======================================== */
+
+  .productsList {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
   }
 
   .item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #0f0f0f;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    border: 1px solid #1a1a1a;
+  }
+
+  .itemInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .itemName {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  .itemImg{
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .itemQty {
+    background-color: #ff6600;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: bold;
   }
 
   .itemPrice {
-    align-self: flex-end;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
   }
 
+  /* ========================================
+    TOTAL
+    ======================================== */
+
   .total {
-    flex-direction: column;
-    gap: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    width: 50%;
+    background-color: #ff6600;
+    border-radius: 6px;
+    margin-top: 1rem;
+  }
+
+  .total > span:first-child {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
   }
 
   .totalAmount {
-    font-size: 1.5rem;
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: bold;
   }
 
-  .sectionTitle {
-    font-size: 1.1rem;
-  }
-}
+  /* ========================================
+    INPUT
+    ======================================== */
 
-@media (max-width: 480px) {
-  .container {
-    padding: 90px 0.75rem 1.5rem 0.75rem;
+  .input {
+    width: 100%;
+    background-color: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 0.875rem;
+    color: #ffffff;
+    font-size: 1rem;
   }
 
-  .title {
-    font-size: 1.3rem;
+  .input:focus {
+    outline: none;
+    border-color: #ff6600;
   }
+
+  /* ========================================
+    MÉTODOS DE PAGO
+    ======================================== */
+
+  .methods {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: start !important;
+  }
+
+  .method {
+    background-color: #0a0a0a;
+    border: 2px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #d1d5db;
+  }
+
+  .method:hover {
+    border-color: #3a3a3a;
+  }
+
+  .method input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #ff6600;
+  }
+
+  .method:has(input:checked) {
+    border-color: #ff6600;
+    background-color: rgba(255, 102, 0, 0.1);
+    color: #ffffff;
+  }
+
+  /* ========================================
+    BOTÓN CONFIRMAR
+    ======================================== */
 
   .confirmBtn {
-    font-size: 1rem;
-    padding: 1rem;
+    width: 50%;
+    background-color: var(--primary-orange);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 1.25rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
   }
-}
+  .footerLayout{
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .backBtn{
+    width: 50%;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 1.25rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  .confirmBtn:hover {
+    background-color: #ff7722;
+  }
+
+  .confirmBtn:active {
+    background-color: #ee5500;
+  }
+
+  /* ========================================
+    RESPONSIVE
+    ======================================== */
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 100px 1rem 2rem 1rem;
+    }
+
+    .title {
+      font-size: 1.5rem;
+    }
+
+    .card {
+      padding: 1rem;
+    }
+
+    .item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .itemPrice {
+      align-self: flex-end;
+    }
+
+    .total {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .totalAmount {
+      font-size: 1.5rem;
+    }
+
+    .sectionTitle {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 90px 0.75rem 1.5rem 0.75rem;
+    }
+
+    .title {
+      font-size: 1.3rem;
+    }
+
+    .confirmBtn {
+      font-size: 1rem;
+      padding: 1rem;
+    }
+  }

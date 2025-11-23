@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import productService from "../../../api/productService";
+import productService from "../../../api/services/productService";
 import ProductModal from "../../../components/products/ProductModal";
 import styles from "./AdminProductos.module.css";
 import Swal from "sweetalert2";
@@ -45,38 +45,42 @@ const AdminProducts = () => {
   };
 
   const handleDelete = async (id) => {
-
     Swal.fire({
       title: "¿Estás seguro de qué quieres eliminar este registro?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#ff6600",
+      cancelButtonColor: "#555",
+      background: "#0a0a0a",
+      color: "white",
+
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
-    }      
-    ).then(async (result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-      await productService.deleteProduct(id);
-      Swal.fire({
-          title: "¡Se ha eliminado el registro correctamente!",
-        icon: "success",
-      });
-      loadProducts();
-    } catch (error) {
-      Swal.fire({
-        title: "¡Oh, oh, ha ocurrido un error!",
-        text: "Regresa",
-        icon: "error",
-      });
-    }
-      }else{
-        return
+          await productService.deleteProduct(id);
+          Swal.fire({
+            title: "¡Se ha eliminado el registro correctamente!",
+            icon: "success",
+            background: "#0a0a0a",
+            color: "white",
+          });
+          loadProducts();
+        } catch (error) {
+          Swal.fire({
+            title: "¡Oh, oh, ha ocurrido un error!",
+            text: "Regresa",
+            background: "#0a0a0a",
+            color: "white",
+            icon: "error",
+          });
+        }
+      } else {
+        return;
       }
-    
-    
-    });  };
+    });
+  };
 
   return (
     <div className={styles.container}>

@@ -5,17 +5,17 @@ import Shop from "./pages/Shop/Shop";
 import Cart from "./pages/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import "./index.css";
-import AdminLayout from "./components/layout/AdminLayout/AdminLayout";
+import AdminLayout from "./components/layout/adminlayout/AdminLayout.jsx";
 import ProductosAdmin from "./pages/Admin/AdminProductos/AdminProducts.jsx";
 import PedidosAdmin from "./pages/Admin/AdminPedidos/AdminPedidos.jsx";
 import UsuariosAdmin from "./pages/Admin/AdminUsuario/AdminUsuario.jsx";
 import { Footer } from "./components/layout/Footer/Footer";
 import { Outlet } from "react-router-dom";
-import AboutClub from "./pages/About/AboutClub.jsx";
+import AboutClub from "./pages/about/AboutClub.jsx";
 import Home from "./pages/home/Home.jsx";
 import AdminDashboard from "./pages/Admin/AdminPrincipal.jsx";
 import Login from "./pages/Login/Login.jsx";
-import Register from "./pages/Register/Register.jsx";
+import Register from "./pages/register/Register.jsx";
 import Order from "./pages/Chekout/Order.jsx";
 
 // Layout público (Navbar + Footer)
@@ -40,7 +40,7 @@ function App() {
           <Route element={<PublicLayout />}>
             <Route path="/about" element={<AboutClub />} />
             <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={<Home />} />
+             <Route path="/home" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>

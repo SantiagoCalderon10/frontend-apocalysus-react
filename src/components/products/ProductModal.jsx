@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import productService from "../../api/productService";
+import productService from "../../api/services/productService";
 import styles from "./ProductModal.module.css";
 import Swal from "sweetalert2";
 

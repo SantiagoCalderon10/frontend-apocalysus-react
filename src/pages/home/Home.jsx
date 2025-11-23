@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Home.module.css";
-import productService from "../../api/productService";
+import productService from "../../api/services/productService";
 import { IoStorefrontSharp } from "react-icons/io5";
 import { MdOutlineSecurity } from "react-icons/md";
 import { IoPeople } from "react-icons/io5";

@@ -1,6 +1,6 @@
 // src/context/CartContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
-import cartService from "../api/cartService";
+import cartService from "../api/services/cartService";
 
 export const CartContext = createContext();
 
@@ -63,7 +63,7 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const clearCart = async () => {
+  const clearCart = async (userId) => {
     try {
       await cartService.clearCart(userId);
       setCart({ productos: [], total: 0, cantidadTotal: 0 });

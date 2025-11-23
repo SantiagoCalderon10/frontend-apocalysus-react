@@ -1,5 +1,5 @@
 // src/api/productService.js
-import axiosInstance from './config/axiosConfig';
+import axiosInstance from '../config/axiosConfig';
 
 const productService = {
   // GET /api/productos - Obtener todos los productos

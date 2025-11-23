@@ -15,8 +15,10 @@ export default function MiniCart({ open, close }) {
       title: "¿Estás seguro de qué quieres vaciar el carrito?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#ff6600",
+      cancelButtonColor: "#555",
+      background: "#0a0a0a",
+      color: "white",
       confirmButtonText: "Sí, vaciar",
       cancelButtonText: "Cancelar",
     }).then(async (result) => {

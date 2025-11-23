@@ -1,5 +1,5 @@
 // src/api/orderService.js
-import axiosInstance from './config/axiosConfig';
+import axiosInstance from '../config/axiosConfig';
 
 const orderService = {
   // Crear nuevo pedido (checkout)
@@ -23,7 +23,7 @@ const orderService = {
   },
 
   // Obtener pedido por ID
-  getOrderById: async (orderId) => {
+  getOrdersById: async (orderId) => {
     try {
       const response = await axiosInstance.get(`/pedidos/historial/${orderId}`);
       return response.data;
@@ -54,15 +54,7 @@ const orderService = {
     }
   },
 
-  // Cancelar pedido
-  cancelOrder: async (orderId) => {
-    try {
-      const response = await axiosInstance.post(`/orders/${orderId}/cancel`);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
+
 
   
 
@@ -76,15 +68,8 @@ const orderService = {
     }
   },
 
-  // Procesar pago
-  processPayment: async (orderId, paymentData) => {
-    try {
-      const response = await axiosInstance.post(`/orders/${orderId}/payment`, paymentData);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
+
+  
 };
 
 export default orderService;

@@ -6,7 +6,7 @@ import {
   AlertCircle,
   Loader,
 } from "lucide-react";
-import productService from "../../api/productService";
+import productService from "../../api/services/productService";
 import { CartContext } from "../../context/CartContext";
 import Swal from "sweetalert2";
 
