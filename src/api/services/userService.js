@@ -14,6 +14,15 @@ const userService = {
     }
   },
 
+  getUsers : async () => {
+    try{
+      const response = await axiosInstance.get(`/usuarios`);
+      return response.data;
+    }catch(error){
+      throw error;
+    }
+  },
+
   getAddressByUser: async (idUsuario) => {
     try {
       const response = await axiosInstance.get(
