@@ -9,7 +9,8 @@ import Checkout from '../pages/Checkout/Checkout';
 import AdminDashboard from '../pages/Admin/AdminDashboard/AdminDashboard';
 import AdminProducts from '../pages/Admin/AdminProducts/AdminProducts';
 import AboutClub from '../pages/About/AboutClub';
-import Home from '../pages/home/home'; 
+import Home from '../pages/home/Home'; 
+import Order from '../pages/Chekout/Order';
 
 const AppRoutes = () => {
   return (
@@ -23,8 +24,9 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order" element={<Order />} />
         <Route path="/admin/*" element={<AdminDashboard />} />
+
       </Routes>
     </BrowserRouter>
   );

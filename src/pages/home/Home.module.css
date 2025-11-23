@@ -9,7 +9,7 @@
 
 /* ===== HERO ===== */
 .hero {
-  background-image: url("../../../public/Landing/IMG/GrupoApocalysus.png");
+  background-image: url("../../assets/img/grupoHeroApocalysus.jpeg");
   position: relative;
   height: 80vh;
   width: 100%;
@@ -52,6 +52,7 @@
 /* Contenido del hero */
 .heroContent {
   position: absolute;
+  font-weight: 900;
   z-index: 3;
   top: 50%;
   left: 50%;
@@ -74,16 +75,18 @@
   background-color: var(--primary-orange) !important;
   color: white;
   padding: 12px 18px;
-  border-radius: 10px;
+  border-radius: 25px !important;
   margin-top: 20px;
   text-decoration: none;
+  font-weight: 400 !important;
   transition: background 0.3s;
+  font-weight: 900;
 }
 
 .explorarBtn:hover {
   transition: all 0.3s ease;
   scale: 1.05;
-  background: #971616;
+  background-color: #971616;
 }
 
 /* ===== FEATURES ===== */
@@ -180,6 +183,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 40px;
+  justify-items: center;
 }
 
 .productCard {
@@ -216,18 +220,19 @@
 
 .cardBody p {
   margin: 10px 0;
-  color: var(--secondary-orange);
+  color: var(--text-gray);
   font-weight: 600;
   font-size: 1.1rem;
 }
 
 .buyBtn {
+  text-decoration: none !important;
   display: inline-block;
   margin-top: 10px;
   padding: 10px 28px;
   border-radius: 25px;
   background: linear-gradient(135deg, var(--primary-orange), var(--accent-orange));
-  color: black !important;
+  color: rgb(255, 255, 255) !important;
   font-weight: 700;
   transition: all 0.3s ease;
   text-transform: uppercase;

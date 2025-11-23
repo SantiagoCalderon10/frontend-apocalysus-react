@@ -1,0 +1,17 @@
+ .cargando{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 1rem;
+   
+  }
+  .spinner {
+    color: #ff9500;
+    animation: spin 1s linear infinite;
+  }
+  .textocargando {
+    color: "#b9bbbd";
+    font-size: 1.2rem;
+  }
