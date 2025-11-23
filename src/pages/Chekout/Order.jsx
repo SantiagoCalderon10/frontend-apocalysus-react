@@ -7,6 +7,7 @@ import orderService from "../../api/services/orderService";
 import userService from "../../api/services/userService";
 import cartService from "../../api/services/cartService";
 import { CartContext } from "./../../context/CartContext";
+import OrderDetail from "../orderDetail/OrderDetail";
 
 function Order() {
   const { cart, loading, updateQuantity, removeFromCart, clearCart } =
@@ -16,7 +17,9 @@ function Order() {
   const [metodoSeleccion, setMetodosSeleccion] = useState(null);
   const [direcciones, setDirecciones] = useState([]);
   const [direccion, setDireccion] = useState(null);
-  
+  const [orderCreated, setOrderCreated] = useState(null);
+  const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
+
   // Cargar direcciones
   useEffect(() => {
     const loadAddress = async () => {
@@ -32,10 +35,10 @@ function Order() {
 
   // Evitar acceso sin productos
   useEffect(() => {
-    if (!loading && cart.productos.length === 0) {
+    if (!loading && cart.productos.length === 0 && !pedidoFinalizado) {
       navigate("/shop");
     }
-  }, [loading, cart]);
+  }, [loading, cart, pedidoFinalizado]);
 
   // Cargar métodos de pago
   useEffect(() => {
@@ -101,7 +104,10 @@ function Order() {
       if (result.isConfirmed) {
         console.log(orderData);
         try {
-          await orderService.createOrder(orderData);
+          const response = await orderService.createOrder(orderData);
+          setOrderCreated(response);
+
+          console.log(response);
 
           Swal.fire({
             title: "Pedido confirmado",
@@ -111,8 +117,16 @@ function Order() {
             color: "white",
           });
           await clearCart(3);
-
-          navigate("/shop");
+          setPedidoFinalizado(true);
+          navigate("/orderdetail", {
+            state: {
+              code: response.codigoPedido,
+              productos: response.items,
+              total: response.precioTotal,
+              direccion: response.direccion,
+              metodoPago: response.metodoPago,
+            },
+          });
         } catch (error) {
           Swal.fire({
             title: "Error",
@@ -125,84 +139,92 @@ function Order() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Confirma tu pedido</h2>
+    <>
+      {orderCreated ? null  : (
+        // Aquí va el contenido actual de Order.jsx
+        <div className={styles.container}>
+          <h2 className={styles.title}>Confirma tu pedido</h2>
 
-      {/* Productos */}
-      <div className={styles.card}>
-        <h3 className={styles.sectionTitle}>Productos</h3>
-        <ul className={styles.productsList}>
-          {cart.productos.map((item) => (
-            <li key={item.idProducto} className={styles.item}>
-              <div className={styles.itemInfo}>
-                <img
-                  className={styles.itemImg}
-                  src={item.imagenUrl}
-                  alt="imagenProducto"
-                />
-                <span className={styles.itemName}>{item.nombre}</span>
-                <span className={styles.itemQty}>x{item.cantidad}</span>
-              </div>
-              <span className={styles.itemPrice}>
-                ${item.subtotal.toLocaleString()}
+          {/* Productos */}
+          <div className={styles.card}>
+            <h3 className={styles.sectionTitle}>Productos</h3>
+            <ul className={styles.productsList}>
+              {cart.productos.map((item) => (
+                <li key={item.idProducto} className={styles.item}>
+                  <div className={styles.itemInfo}>
+                    <img
+                      className={styles.itemImg}
+                      src={item.imagenUrl}
+                      alt="imagenProducto"
+                    />
+                    <span className={styles.itemName}>{item.nombre}</span>
+                    <span className={styles.itemQty}>x{item.cantidad}</span>
+                  </div>
+                  <span className={styles.itemPrice}>
+                    ${item.subtotal.toLocaleString()}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className={styles.total}>
+              <span>Total:</span>
+              <span className={styles.totalAmount}>
+                ${cart.total.toLocaleString()}
               </span>
-            </li>
-          ))}
-        </ul>
-        <div className={styles.total}>
-          <span>Total:</span>
-          <span className={styles.totalAmount}>
-            ${cart.total.toLocaleString()}
+            </div>
+          </div>
+
+          {/* Direcciones */}
+          <div className={styles.card}>
+            <h3 className={styles.sectionTitle}>Dirección de entrega</h3>
+            <select
+              className={styles.input}
+              value={direccion ? JSON.stringify(direccion) : ""}
+              onChange={(e) => setDireccion(JSON.parse(e.target.value))}
+            >
+              <option value="">Selecciona una dirección</option>
+              {direcciones.map((dir) => (
+                <option key={dir.id} value={JSON.stringify(dir)}>
+                  {dir.calle}, {dir.ciudad}, {dir.departamento}, {dir.pais}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Método de pago */}
+          <div className={styles.card}>
+            <h3 className={styles.sectionTitle}>Método de pago</h3>
+            <div className={styles.methods}>
+              {metodos.map((mp) => (
+                <label key={mp.id} className={styles.method}>
+                  <input
+                    type="radio"
+                    name="payment"
+                    value={JSON.stringify(mp)}
+                    onChange={(e) =>
+                      setMetodosSeleccion(JSON.parse(e.target.value))
+                    }
+                  />
+                  {mp.nombre}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <span className={styles.footerLayout}>
+            <button className={styles.confirmBtn} onClick={handleConfirm}>
+              Confirmar Pedido
+            </button>
+            <button
+              className={styles.backBtn}
+              onClick={() => navigate("/shop")}
+            >
+              Volver
+            </button>
           </span>
         </div>
-      </div>
-
-      {/* Direcciones */}
-      <div className={styles.card}>
-        <h3 className={styles.sectionTitle}>Dirección de entrega</h3>
-        <select
-          className={styles.input}
-          value={direccion ? JSON.stringify(direccion) : ""}
-          onChange={(e) => setDireccion(JSON.parse(e.target.value))}
-        >
-          <option value="">Selecciona una dirección</option>
-          {direcciones.map((dir) => (
-            <option key={dir.id} value={JSON.stringify(dir)}>
-              {dir.calle}, {dir.ciudad}, {dir.departamento}, {dir.pais}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Método de pago */}
-      <div className={styles.card}>
-        <h3 className={styles.sectionTitle}>Método de pago</h3>
-        <div className={styles.methods}>
-          {metodos.map((mp) => (
-            <label key={mp.id} className={styles.method}>
-              <input
-                type="radio"
-                name="payment"
-                value={JSON.stringify(mp)}
-                onChange={(e) =>
-                  setMetodosSeleccion(JSON.parse(e.target.value))
-                }
-              />
-              {mp.nombre}
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <span className={styles.footerLayout}>
-        <button className={styles.confirmBtn} onClick={handleConfirm}>
-          Confirmar Pedido
-        </button>
-        <button className={styles.backBtn} onClick={() => navigate("/shop")}>
-          Volver
-        </button>
-      </span>
-    </div>
+      )}
+    </>
   );
 }
 

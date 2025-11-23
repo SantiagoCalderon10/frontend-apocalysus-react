@@ -17,6 +17,7 @@ import AdminDashboard from "./pages/Admin/AdminPrincipal.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/register/Register.jsx";
 import Order from "./pages/Chekout/Order.jsx";
+import OrderDetail from "./pages/orderDetail/OrderDetail.jsx";
 
 // Layout público (Navbar + Footer)
 function PublicLayout() {
@@ -40,11 +41,12 @@ function App() {
           <Route element={<PublicLayout />}>
             <Route path="/about" element={<AboutClub />} />
             <Route path="/" element={<Navigate to="/home" />} />
-             <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/order" element ={<Order/>}/>
+            <Route path="/order" element={<Order />} />
+            <Route path="/orderdetail" element={<OrderDetail />} />
           </Route>
 
           {/* RUTAS ADMIN (sin navbar) */}
