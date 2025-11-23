@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
-
+import { Link, useNavigate } from "react-router-dom";
 
 export default function MiniCart({ open, close }) {
   const { cart, loading, updateQuantity, removeFromCart, clearCart } =
@@ -40,6 +40,7 @@ export default function MiniCart({ open, close }) {
     });
   };
 
+  const navigate = useNavigate();
   return (
     <div
       className={`${styles.overlay} ${open ? styles.show : ""}`}
@@ -79,8 +80,9 @@ export default function MiniCart({ open, close }) {
                       onClick={() =>
                         updateQuantity(p.idProducto, p.cantidad - 1)
                       }
-                    > <FaMinus />
-
+                    >
+                      {" "}
+                      <FaMinus />
                     </button>
                     <input
                       type="number"
@@ -98,7 +100,6 @@ export default function MiniCart({ open, close }) {
                       className={styles.cambioCantidad}
                     >
                       <FaPlus />
-
                     </button>
                   </div>
                 </div>
@@ -108,7 +109,6 @@ export default function MiniCart({ open, close }) {
                   onClick={() => removeFromCart(p.idProducto)}
                 >
                   <BsFillTrash3Fill />
-
                 </button>
               </div>
             ))}
@@ -119,13 +119,26 @@ export default function MiniCart({ open, close }) {
           <p className={styles.total}>
             Total: ${cart.total?.toLocaleString("es-CO")}
           </p>
-          <button className={styles.payBtn}>Ir a pagar</button>
-          <button
-            className={styles.emptyCart}
-            onClick={() => confirmClearCart(3)}
-          >
-            Vaciar Carrito
-          </button>
+          {!cart.productos?.length ? (
+            <button className={styles.payBtn} onClick={() => navigate("/shop")}>
+              Agregar productos
+            </button>
+          ) : (
+            <>
+              <button
+                className={styles.payBtn}
+                onClick={() => navigate("/order")}
+              >
+                Ir a pagar
+              </button>
+              <button
+                className={styles.emptyCart}
+                onClick={() => confirmClearCart(3)}
+              >
+                Vaciar Carrito
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

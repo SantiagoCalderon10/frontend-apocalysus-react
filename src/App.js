@@ -42,10 +42,9 @@ function App() {
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/order" elemente ={<Order/>}/>
+            <Route path="/order" element ={<Order/>}/>
           </Route>
 
           {/* RUTAS ADMIN (sin navbar) */}

@@ -5,7 +5,7 @@ const orderService = {
   // Crear nuevo pedido (checkout)
   createOrder: async (orderData) => {
     try {
-      const response = await axiosInstance.post('/orders', orderData);
+      const response = await axiosInstance.post('/pedidos/crear', orderData);
       return response.data;
     } catch (error) {
       throw error;
@@ -25,7 +25,7 @@ const orderService = {
   // Obtener pedido por ID
   getOrderById: async (orderId) => {
     try {
-      const response = await axiosInstance.get(`/orders/${orderId}`);
+      const response = await axiosInstance.get(`/pedidos/historial/${orderId}`);
       return response.data;
     } catch (error) {
       throw error;
@@ -64,10 +64,12 @@ const orderService = {
     }
   },
 
-  // Obtener estadísticas de pedidos (ADMIN)
-  getOrderStats: async () => {
+  
+
+
+   getPayMethods: async () => {
     try {
-      const response = await axiosInstance.get('/orders/stats');
+      const response = await axiosInstance.get('/pedidos/metodospago');
       return response.data;
     } catch (error) {
       throw error;
