@@ -18,6 +18,7 @@ import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/register/Register.jsx";
 import Order from "./pages/Chekout/Order.jsx";
 import OrderDetail from "./pages/orderDetail/OrderDetail.jsx";
+import Profile from "./pages/profile/Profile.jsx";
 
 // Layout público (Navbar + Footer)
 function PublicLayout() {
@@ -47,6 +48,8 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/order" element={<Order />} />
             <Route path="/orderdetail" element={<OrderDetail />} />
+                        <Route path="/profile" element={<Profile />} />
+
           </Route>
 
           {/* RUTAS ADMIN (sin navbar) */}
