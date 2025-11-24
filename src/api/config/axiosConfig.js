@@ -8,23 +8,38 @@ const axiosInstance = axios.create({
   },
 });
 
+// Rutas que SÍ requieren token
+const privatePaths = [
+  '/carrito',
+  '/pedidos',
+  '/usuarios',
+  '/admin'
+];
+
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
+    
+    // Solo agregar token si la ruta es privada
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      const isPrivate = privatePaths.some(path =>
+        config.url.startsWith(path)
+      );
+
+      if (isPrivate) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
+    if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';

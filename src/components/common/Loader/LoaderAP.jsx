@@ -4,9 +4,9 @@ import { Loader } from 'lucide-react';
 
 export const LoaderAP = ({text}) => {
   return (
-     <div className={styles.cargando}>
-        <Loader size={48} className={styles.spinner} />
-        <p className={styles.textocargando}>{text}</p>
+     <div className={styles.loading}>
+        <div className={styles.spinner}></div>
+        <p>{text}</p>
       </div>
   )
 }

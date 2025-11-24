@@ -4,8 +4,6 @@ import Navbar from "../components/layout/Navbar/Navbar";
 import Shop from "../pages/Shop/Shop";
 import Login from "../pages/Login/Login";
 import Register from "../pages/register/Register";
-import Cart from "../pages/Cart/Cart";
-import Checkout from "../pages/Checkout/Checkout";
 import AdminDashboard from "../pages/Admin/AdminDashboard/AdminDashboard";
 import AdminProducts from "../pages/Admin/AdminProducts/AdminProducts";
 import AboutClub from "../pages/about/AboutClub";
@@ -27,7 +25,6 @@ const AppRoutes = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/orderdetail" element={<OrderDetail />} />
 

@@ -6,11 +6,15 @@ import logo from "../../../assets/img/logoApocalyisus.png";
 import { FaShoppingCart } from "react-icons/fa";
 import { CartContext } from "../../../context/CartContext";
 import MiniCart from "../../cart/MiniCart";
+import { useAuth } from "../../../context/AuthContext";
+import { FaUser } from "react-icons/fa";
+
 
 const Navbar = () => {
   const { cartCount } = useContext(CartContext);
   const [openCart, setOpenCart] = useState(false);
   const navigate = useNavigate();
+const { isAuthenticated, user, logout } = useAuth();
 
   return (
     <nav
@@ -60,14 +64,33 @@ const Navbar = () => {
                 Acerca del Club
               </a>
             </li>
+{isAuthenticated() ? (
+  <div className="d-flex align-items-center" style={{ gap: "8px" }}>
+    <button
+      onClick={() => navigate("/profile")}
+     
+    >
+     <FaUser/>
+    </button>
 
-           
-            <li className="nav-item">
-              <a className={`btn ms-2 ${styles.btnIngreso}`} href="/admin">
-                Ingrese
-              </a>
-            </li>
-
+    <button
+      className="btn btn-link text-white"
+      onClick={() => {
+        logout();
+        navigate("/");
+      }}
+    >
+      Salir
+    </button>
+  </div>
+) : (
+  <a
+    onClick={() => navigate("/login")}
+    className={`btn ms-2 ${styles.btnIngreso}`}
+  >
+    Ingrese
+  </a>
+)}
             {/*  CARRITO  */}
             <li
               className="nav-item d-flex align-items-center"

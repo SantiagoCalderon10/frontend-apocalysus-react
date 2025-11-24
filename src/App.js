@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/layout/Navbar/Navbar";
 import Shop from "./pages/Shop/Shop";
-import Cart from "./pages/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import "./index.css";
 import AdminLayout from "./components/layout/adminlayout/AdminLayout.jsx";
@@ -19,6 +18,7 @@ import Register from "./pages/register/Register.jsx";
 import Order from "./pages/Chekout/Order.jsx";
 import OrderDetail from "./pages/orderDetail/OrderDetail.jsx";
 import Profile from "./pages/profile/Profile.jsx";
+import { AuthProvider } from './context/AuthContext';
 
 // Layout público (Navbar + Footer)
 function PublicLayout() {
@@ -48,7 +48,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/order" element={<Order />} />
             <Route path="/orderdetail" element={<OrderDetail />} />
-                        <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />
 
           </Route>
 

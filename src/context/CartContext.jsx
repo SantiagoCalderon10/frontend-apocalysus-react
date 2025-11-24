@@ -1,6 +1,7 @@
 // src/context/CartContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 import cartService from "../api/services/cartService";
+import { useAuth } from "./AuthContext";
 
 export const CartContext = createContext();
 
@@ -8,71 +9,70 @@ const normalizeCart = (data) => {
   return {
     productos: data.items || data.productos || [],
     total: data.total || 0,
-    cantidadTotal: data.cantidadTotal || (data.items?.length ?? 0),
+    cantidadTotal:
+      data.cantidadTotal ||
+      (data.items ? data.items.reduce((acc, i) => acc + i.cantidad, 0) : 0),
   };
 };
 
-
 export const CartProvider = ({ children }) => {
+  const { user, isAuthenticated } = useAuth();
   const [cart, setCart] = useState({ productos: [], total: 0, cantidadTotal: 0 });
   const [loading, setLoading] = useState(true);
 
-  const userId = 3; // luego se reemplaza con el authContext
+  // Obtener ID del usuario autenticado
+  const userId = user?.id || null;
 
+  // Cargar carrito solo si hay usuario autenticado
   const loadCart = async () => {
-  try {
-    setLoading(true);
-    const data = await cartService.getCart(userId);
-    setCart(normalizeCart(data));
-  } catch (error) {
-    console.error("Error al cargar carrito:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+    if (!userId) {
+      setCart({ productos: [], total: 0, cantidadTotal: 0 });
+      setLoading(false);
+      return;
+    }
 
+    try {
+      setLoading(true);
+      const data = await cartService.getCart();
+      setCart(normalizeCart(data));
+    } catch (error) {
+      console.error("Error al cargar carrito:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     loadCart();
-  }, []);
+  }, [userId]);
+
+  // ------------------------
+  // ACCIONES DEL CARRITO
+  // ------------------------
 
   const addToCart = async (idProducto, cantidad = 1) => {
-    try {
-      const data = await cartService.addToCart(userId, idProducto, cantidad);
-      setCart(normalizeCart(data));
-    } catch (error) {
-      console.error(error);
-    }
+    if (!isAuthenticated()) throw new Error("NO_AUTH");
+    const data = await cartService.addToCart(idProducto, cantidad);
+    setCart(normalizeCart(data));
   };
 
   const updateQuantity = async (idProducto, cantidad) => {
-    try {
-      const data = await cartService.updateCartItem(userId, idProducto, cantidad);
-      setCart(normalizeCart(data));
-    } catch (error) {
-      console.error(error);
-    }
+    if (!isAuthenticated()) throw new Error("NO_AUTH");
+    const data = await cartService.updateCartItem(idProducto, cantidad);
+    setCart(normalizeCart(data));
   };
 
   const removeFromCart = async (idProducto) => {
-    try {
-      const data = await cartService.removeFromCart(userId, idProducto);
-      setCart(normalizeCart(data));
-    } catch (error) {
-      console.error(error);
-    }
+    if (!isAuthenticated()) throw new Error("NO_AUTH");
+    const data = await cartService.removeFromCart(idProducto);
+    setCart(normalizeCart(data));
   };
 
-  const clearCart = async (userId) => {
-    try {
-      await cartService.clearCart(userId);
-      setCart({ productos: [], total: 0, cantidadTotal: 0 });
-    } catch (error) {
-      console.error(error);
-    }
+  const clearCart = async () => {
+    if (!isAuthenticated()) throw new Error("NO_AUTH");
+    await cartService.clearCart();
+    setCart({ productos: [], total: 0, cantidadTotal: 0 });
   };
-
-  const cartCount = cart?.cantidadTotal || 0;
 
   return (
     <CartContext.Provider
@@ -83,7 +83,7 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         removeFromCart,
         clearCart,
-        cartCount,
+        cartCount: cart.cantidadTotal,
       }}
     >
       {children}

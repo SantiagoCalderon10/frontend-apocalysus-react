@@ -2,37 +2,14 @@ import axiosInstance from "../config/axiosConfig";
 
 const userService = {
   // Crear nuevo pedido (checkout)
-  addAddress: async (address, idUsuario) => {
-    try {
-      const response = await axiosInstance.post(
-        `/usuarios/agregardireccion/${idUsuario}`,
-        address
-      );
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
+  getAddresses: async () => {
+  return axiosInstance.get("/usuarios/direcciones");
+},
 
-  getUsers : async () => {
-    try{
-      const response = await axiosInstance.get(`/usuarios`);
-      return response.data;
-    }catch(error){
-      throw error;
-    }
-  },
+addAddress: async (direccion) => {
+  return axiosInstance.post("/usuarios/agregardireccion", direccion);
+},
 
-  getAddressByUser: async (idUsuario) => {
-    try {
-      const response = await axiosInstance.get(
-        `/usuarios/direcciones/${idUsuario}`
-      );
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
 };
 
 export default userService;
