@@ -51,9 +51,15 @@ export const CartProvider = ({ children }) => {
   // ------------------------
 
   const addToCart = async (idProducto, cantidad = 1) => {
-    if (!isAuthenticated()) throw new Error("NO_AUTH");
+    if (!isAuthenticated()){
+      throw new Error("NO_AUTH");
+      
+    } else{
+
     const data = await cartService.addToCart(idProducto, cantidad);
     setCart(normalizeCart(data));
+    }
+
   };
 
   const updateQuantity = async (idProducto, cantidad) => {

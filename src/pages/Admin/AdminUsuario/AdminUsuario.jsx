@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import userService from "../../../api/services/userService";
+import userService from "./../../../api/services/userService";
 import styles from "./AdminUsuario.module.css";
 import Swal from "sweetalert2";
 

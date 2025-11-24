@@ -94,6 +94,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  
+
   // Verificar si es admin
   const isAdmin = () => {
     return user?.roles?.includes('ROLE_ADMINISTRADOR');

@@ -94,6 +94,7 @@
       } catch (error) {
         console.error("Error al agregar al carrito:", error);
         
+        
         // Toast de error también discreto
         const Toast = Swal.mixin({
           toast: true,
@@ -112,7 +113,7 @@
 
         Toast.fire({
           icon: "error",
-          title: "Error al agregar",
+          title: "Debes iniciar sesión",
           text: "Intenta nuevamente",
         });
       }

@@ -5,44 +5,36 @@ import Swal from "sweetalert2";
 import styles from "./Order.module.css";
 import orderService from "../../api/services/orderService";
 import userService from "../../api/services/userService";
-import cartService from "../../api/services/cartService";
-import { CartContext } from "./../../context/CartContext";
-import OrderDetail from "../orderDetail/OrderDetail";
+import { useAuth } from "../../context/AuthContext";
 
 function Order() {
-  const { cart, loading, updateQuantity, removeFromCart, clearCart } =
-    useCart();
+  const { cart, loading, clearCart } = useCart();
+  const { user: authUser } = useAuth(); // Usuario autenticado desde AuthContext
   const navigate = useNavigate();
-  const [metodos, setMetodos] = useState([]);
-  const [metodoSeleccion, setMetodosSeleccion] = useState(null);
+
   const [direcciones, setDirecciones] = useState([]);
   const [direccion, setDireccion] = useState(null);
-  const [orderCreated, setOrderCreated] = useState(null);
+  const [metodos, setMetodos] = useState([]);
+  const [metodoSeleccion, setMetodosSeleccion] = useState(null);
   const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
 
-  // Cargar direcciones
+  // Cargar direcciones del usuario
   useEffect(() => {
-    const loadAddress = async () => {
+    const loadAddresses = async () => {
+      if (!authUser) return; // Evita que corra si no hay usuario
       try {
-        const data = await userService.getAddressByUser(3); // cambiar luego por usuario real
-        setDirecciones(data);
+        const response = await userService.getAddresses();
+        setDirecciones(response.data || []);
       } catch (error) {
         console.error("Error cargando direcciones", error);
       }
     };
-    loadAddress();
-  }, []);
-
-  // Evitar acceso sin productos
-  useEffect(() => {
-    if (!loading && cart.productos.length === 0 && !pedidoFinalizado) {
-      navigate("/shop");
-    }
-  }, [loading, cart, pedidoFinalizado]);
+    loadAddresses();
+  }, [authUser]);
 
   // Cargar métodos de pago
   useEffect(() => {
-    const loadPayMethod = async () => {
+    const loadPayMethods = async () => {
       try {
         const data = await orderService.getPayMethods();
         setMetodos(data);
@@ -50,10 +42,27 @@ function Order() {
         console.error("Error cargando métodos de pago:", error);
       }
     };
-    loadPayMethod();
+    loadPayMethods();
   }, []);
 
+  // Evitar acceso sin productos
+  useEffect(() => {
+    if (!loading && cart.productos.length === 0 && !pedidoFinalizado) {
+      navigate("/shop");
+    }
+  }, [loading, cart, pedidoFinalizado, navigate]);
+
   const handleConfirm = async () => {
+    if (!authUser) {
+      Swal.fire({
+        icon: "error",
+        title: "Usuario no autenticado",
+        background: "#0a0a0a",
+        color: "white",
+      });
+      return;
+    }
+
     if (!metodoSeleccion) {
       Swal.fire({
         icon: "warning",
@@ -74,25 +83,20 @@ function Order() {
       return;
     }
 
-    // OBJETO FINAL que debe recibir tu backend:
     const orderData = {
-      idUsuario: 3, // cambiar por ID real (JWT luego)
+   // Usuario autenticado
+   idUsuario : authUser.idUsuario,
       idDireccion: direccion.id,
       idMetodoPago: metodoSeleccion.idMetodoPago,
     };
+
     Swal.fire({
       title: "¿Confirmar pedido?",
       html: `
-    <p style="color:#ccc">Método de pago: <strong>${
-      metodoSeleccion.nombre
-    }</strong></p>
-    <p style="color:#ccc">Dirección: <strong>
-      ${direccion.calle}, ${direccion.ciudad}, ${direccion.departamento}, ${
-        direccion.pais
-      }
-    </strong></p>
-    <p style="color:#ccc">Total: <strong>$${cart.total.toLocaleString()}</strong></p>
-  `,
+        <p style="color:#ccc">Método de pago: <strong>${metodoSeleccion.nombre}</strong></p>
+        <p style="color:#ccc">Dirección: <strong>${direccion.calle}, ${direccion.ciudad}, ${direccion.departamento}, ${direccion.pais}</strong></p>
+        <p style="color:#ccc">Total: <strong>$${cart.total.toLocaleString()}</strong></p>
+      `,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#ff6600",
@@ -102,12 +106,8 @@ function Order() {
       confirmButtonText: "Sí, realizar pedido",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(orderData);
         try {
           const response = await orderService.createOrder(orderData);
-          setOrderCreated(response);
-
-          console.log(response);
 
           Swal.fire({
             title: "Pedido confirmado",
@@ -116,8 +116,10 @@ function Order() {
             background: "#0a0a0a",
             color: "white",
           });
-          await clearCart(3);
+
+          await clearCart();
           setPedidoFinalizado(true);
+
           navigate("/orderdetail", {
             state: {
               code: response.codigoPedido,
@@ -128,10 +130,13 @@ function Order() {
             },
           });
         } catch (error) {
+          console.error(error);
           Swal.fire({
             title: "Error",
-            text: "No se pudo crear el pedido",
+            text: error.message,
             icon: "error",
+            background: "#0a0a0a",
+            color: "white",
           });
         }
       }
@@ -140,8 +145,7 @@ function Order() {
 
   return (
     <>
-      {orderCreated ? null  : (
-        // Aquí va el contenido actual de Order.jsx
+      {!pedidoFinalizado && (
         <div className={styles.container}>
           <h2 className={styles.title}>Confirma tu pedido</h2>
 
@@ -155,7 +159,7 @@ function Order() {
                     <img
                       className={styles.itemImg}
                       src={item.imagenUrl}
-                      alt="imagenProducto"
+                      alt={item.nombre}
                     />
                     <span className={styles.itemName}>{item.nombre}</span>
                     <span className={styles.itemQty}>x{item.cantidad}</span>
@@ -196,7 +200,7 @@ function Order() {
             <h3 className={styles.sectionTitle}>Método de pago</h3>
             <div className={styles.methods}>
               {metodos.map((mp) => (
-                <label key={mp.id} className={styles.method}>
+                <label key={mp.idMetodoPago} className={styles.method}>
                   <input
                     type="radio"
                     name="payment"
