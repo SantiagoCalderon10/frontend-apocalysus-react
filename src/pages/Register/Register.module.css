@@ -1,0 +1,221 @@
+/* ============================== */
+/* Contenedor Principal */
+/* ============================== */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  padding: 20px;
+}
+
+/* ============================== */
+/* Tarjeta de Registro */
+/* ============================== */
+.card {
+  background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
+  border-radius: 20px;
+  padding: 50px 45px;
+  width: 100%;
+  max-width: 540px;
+  border: 1px solid #333;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(255, 102, 0, 0.1);
+}
+
+/* ============================== */
+/* Título */
+/* ============================== */
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 35px;
+  text-align: center;
+  background: linear-gradient(135deg, #ff6600, #ffaa33, #ff9500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+/* ============================== */
+/* Formulario */
+/* ============================== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ============================== */
+/* Fila para campos en línea */
+/* ============================== */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputGroup label {
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.inputGroup input {
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 15px 18px;
+  color: #fff;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.inputGroup input::placeholder {
+  color: #666;
+}
+
+.inputGroup input:focus {
+  border-color: #ff6600;
+  background: #222;
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+}
+
+.inputGroup input:hover {
+  border-color: #555;
+}
+
+/* ============================== */
+/* Botón */
+/* ============================== */
+.button {
+  background: linear-gradient(135deg, #ff6600, #ff9500);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #ff7a1a, #ffaa33);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 102, 0, 0.3);
+}
+
+/* ============================== */
+/* Texto de Cambio */
+/* ============================== */
+.switch {
+  text-align: center;
+  margin-top: 25px;
+  color: #999;
+  font-size: 14px;
+}
+
+.switch a{
+  color: #ff9500;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-emphasis: none;
+}
+
+.switch span:hover {
+  color: #ffaa33;
+  text-decoration: underline;
+}
+
+/* ============================== */
+/* Responsive */
+/* ============================== */
+@media (max-width: 768px) {
+  .card {
+    padding: 40px 30px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .inputGroup input {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .button {
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .card {
+    padding: 35px 25px;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .form {
+    gap: 18px;
+  }
+
+  .row {
+    gap: 18px;
+  }
+
+  .inputGroup label {
+    font-size: 13px;
+  }
+
+  .inputGroup input {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .button {
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  .switch {
+    font-size: 13px;
+    margin-top: 20px;
+  }
+}

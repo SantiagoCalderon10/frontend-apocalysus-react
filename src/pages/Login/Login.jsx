@@ -21,7 +21,7 @@ function Login() {
         </form>
 
         <p className={styles.switch}>
-          ¿No tienes cuenta? <span>Regístrate</span>
+          ¿No tienes cuenta? <a href="/register">Registrarse</a>
         </p>
       </div>
     </div>

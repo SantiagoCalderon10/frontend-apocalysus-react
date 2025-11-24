@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import styles from "../Login/Login.module.css";
 
 export default function Register() {
@@ -10,6 +11,11 @@ export default function Register() {
           <div className={styles.inputGroup}>
             <label>Nombre</label>
             <input type="text" placeholder="Tu nombre" />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label>Apellido</label>
+            <input type="text" placeholder="Tu apellido" />
           </div>
 
           <div className={styles.inputGroup}>
@@ -26,7 +32,7 @@ export default function Register() {
         </form>
 
         <p className={styles.switch}>
-          ¿Ya tienes cuenta? <span>Inicia sesión</span>
+          ¿Ya tienes cuenta? <a href="/login"> Iniciar Sesión</a>
         </p>
       </div>
     </div>
