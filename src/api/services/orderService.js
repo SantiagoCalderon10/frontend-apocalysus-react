@@ -2,6 +2,9 @@ import axiosInstance from '../config/axiosConfig';
 
 const orderService = {
   createOrder: async (orderData) => {
+
+    console.log('Token enviado:', localStorage.getItem('token'));
+
     const response = await axiosInstance.post('/pedidos/crear', orderData);
     return response.data;
   },

@@ -84,8 +84,7 @@ function Order() {
     }
 
     const orderData = {
-   // Usuario autenticado
-   idUsuario : authUser.idUsuario,
+      // Usuario autenticado
       idDireccion: direccion.id,
       idMetodoPago: metodoSeleccion.idMetodoPago,
     };
@@ -93,8 +92,12 @@ function Order() {
     Swal.fire({
       title: "¿Confirmar pedido?",
       html: `
-        <p style="color:#ccc">Método de pago: <strong>${metodoSeleccion.nombre}</strong></p>
-        <p style="color:#ccc">Dirección: <strong>${direccion.calle}, ${direccion.ciudad}, ${direccion.departamento}, ${direccion.pais}</strong></p>
+        <p style="color:#ccc">Método de pago: <strong>${
+          metodoSeleccion.nombre
+        }</strong></p>
+        <p style="color:#ccc">Dirección: <strong>${direccion.calle}, ${
+        direccion.ciudad
+      }, ${direccion.departamento}, ${direccion.pais}</strong></p>
         <p style="color:#ccc">Total: <strong>$${cart.total.toLocaleString()}</strong></p>
       `,
       icon: "question",
