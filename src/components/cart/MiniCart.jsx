@@ -8,7 +8,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function MiniCart({ open, close }) {
-  const { cart, loading, updateQuantity, removeFromCart, clearCart } = useCart();
+  const { cart, loading, updateQuantity, removeFromCart, clearCart } =
+    useCart();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -108,9 +109,11 @@ export default function MiniCart({ open, close }) {
                   <div className={styles.valores}>
                     <button
                       className={styles.cambioCantidad}
-                      onClick={() =>
-                        updateQuantity(p.idProducto, p.cantidad - 1)
-                      }
+                      onClick={() => {
+                        if (p.cantidad !== 1) {
+                          updateQuantity(p.idProducto, p.cantidad - 1);
+                        }
+                      }}
                     >
                       <FaMinus />
                     </button>
@@ -158,7 +161,10 @@ export default function MiniCart({ open, close }) {
             </p>
 
             {!cart.productos?.length ? (
-              <button className={styles.payBtn} onClick={() => navigate("/shop")}>
+              <button
+                className={styles.payBtn}
+                onClick={() => navigate("/shop")}
+              >
                 Agregar productos
               </button>
             ) : (
@@ -170,10 +176,7 @@ export default function MiniCart({ open, close }) {
                   Ir a pagar
                 </button>
 
-                <button
-                  className={styles.emptyCart}
-                  onClick={confirmClearCart}
-                >
+                <button className={styles.emptyCart} onClick={confirmClearCart}>
                   Vaciar Carrito
                 </button>
               </>

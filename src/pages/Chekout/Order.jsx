@@ -6,10 +6,11 @@ import styles from "./Order.module.css";
 import orderService from "../../api/services/orderService";
 import userService from "../../api/services/userService";
 import { useAuth } from "../../context/AuthContext";
+import authService from "../../api/services/authService";
 
 function Order() {
   const { cart, loading, clearCart } = useCart();
-  const { user: authUser } = useAuth(); // Usuario autenticado desde AuthContext
+  const { user: authUser } = useAuth();
   const navigate = useNavigate();
 
   const [direcciones, setDirecciones] = useState([]);
@@ -17,24 +18,64 @@ function Order() {
   const [metodos, setMetodos] = useState([]);
   const [metodoSeleccion, setMetodosSeleccion] = useState(null);
   const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
+  const [isVerifyingAuth, setIsVerifyingAuth] = useState(true);
+
+  // 🔥 PRIMERO: Verificar autenticación
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        console.error('❌ No hay token, redirigiendo a login');
+        Swal.fire({
+          icon: "error",
+          title: "Sesión expirada",
+          text: "Por favor, inicia sesión",
+          background: "#0a0a0a",
+          color: "white",
+        });
+        navigate('/login');
+        return;
+      }
+
+      console.log('✅ Token presente, verificando validez...');
+      setIsVerifyingAuth(false);
+    };
+    
+    verifyAuth();
+  }, [navigate]);
 
   // Cargar direcciones del usuario
   useEffect(() => {
     const loadAddresses = async () => {
-      if (!authUser) return; // Evita que corra si no hay usuario
+      if (isVerifyingAuth || !authUser) return;
+      
       try {
         const response = await userService.getAddresses();
         setDirecciones(response.data || []);
       } catch (error) {
         console.error("Error cargando direcciones", error);
+        
+        if (error.response?.status === 401) {
+          Swal.fire({
+            icon: "error",
+            title: "Sesión expirada",
+            text: "Por favor, inicia sesión nuevamente",
+            background: "#0a0a0a",
+            color: "white",
+          });
+          authService.logout();
+        }
       }
     };
     loadAddresses();
-  }, [authUser]);
+  }, [authUser, isVerifyingAuth]);
 
   // Cargar métodos de pago
   useEffect(() => {
     const loadPayMethods = async () => {
+      if (isVerifyingAuth) return;
+      
       try {
         const data = await orderService.getPayMethods();
         setMetodos(data);
@@ -43,7 +84,7 @@ function Order() {
       }
     };
     loadPayMethods();
-  }, []);
+  }, [isVerifyingAuth]);
 
   // Evitar acceso sin productos
   useEffect(() => {
@@ -53,6 +94,25 @@ function Order() {
   }, [loading, cart, pedidoFinalizado, navigate]);
 
   const handleConfirm = async () => {
+    // 🔥 VALIDACIÓN CRÍTICA DEL TOKEN ANTES DE ENVIAR
+    const token = localStorage.getItem('token');
+    
+    console.log('🔍 Verificando token antes de crear pedido...');
+    console.log('Token presente:', !!token);
+    console.log('Token preview:', token ? token.substring(0, 30) + '...' : 'NO HAY TOKEN');
+    
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Sesión expirada",
+        text: "Por favor, inicia sesión nuevamente",
+        background: "#0a0a0a",
+        color: "white",
+      });
+      navigate('/login');
+      return;
+    }
+
     if (!authUser) {
       Swal.fire({
         icon: "error",
@@ -84,7 +144,7 @@ function Order() {
     }
 
     const orderData = {
-      // Usuario autenticado
+      idUsuario : 0,
       idDireccion: direccion.id,
       idMetodoPago: metodoSeleccion.idMetodoPago,
     };
@@ -92,12 +152,8 @@ function Order() {
     Swal.fire({
       title: "¿Confirmar pedido?",
       html: `
-        <p style="color:#ccc">Método de pago: <strong>${
-          metodoSeleccion.nombre
-        }</strong></p>
-        <p style="color:#ccc">Dirección: <strong>${direccion.calle}, ${
-        direccion.ciudad
-      }, ${direccion.departamento}, ${direccion.pais}</strong></p>
+        <p style="color:#ccc">Método de pago: <strong>${metodoSeleccion.nombre}</strong></p>
+        <p style="color:#ccc">Dirección: <strong>${direccion.calle}, ${direccion.ciudad}, ${direccion.departamento}, ${direccion.pais}</strong></p>
         <p style="color:#ccc">Total: <strong>$${cart.total.toLocaleString()}</strong></p>
       `,
       icon: "question",
@@ -110,6 +166,11 @@ function Order() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          // 🔥 VERIFICAR TOKEN JUSTO ANTES DE LA LLAMADA
+          const tokenBeforeCall = localStorage.getItem('token');
+          console.log('🚀 Enviando pedido...');
+          console.log('Token justo antes de la llamada:', !!tokenBeforeCall);
+          
           const response = await orderService.createOrder(orderData);
 
           Swal.fire({
@@ -133,10 +194,31 @@ function Order() {
             },
           });
         } catch (error) {
-          console.error(error);
+          console.error('❌ Error al crear pedido:', error);
+          
+          let errorMessage = "No se pudo completar el pedido";
+          
+          if (error.response) {
+            console.error('Status:', error.response.status);
+            console.error('Data:', error.response.data);
+            
+            if (error.response.status === 401) {
+              errorMessage = "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.";
+              setTimeout(() => {
+                authService.logout();
+              }, 2000);
+            } else if (error.response.status === 403) {
+              errorMessage = "No tienes permisos para realizar esta acción";
+            } else if (error.response.data?.message) {
+              errorMessage = error.response.data.message;
+            }
+          } else if (error.message) {
+            errorMessage = error.message;
+          }
+          
           Swal.fire({
             title: "Error",
-            text: error.message,
+            text: errorMessage,
             icon: "error",
             background: "#0a0a0a",
             color: "white",
@@ -145,6 +227,14 @@ function Order() {
       }
     });
   };
+
+  if (isVerifyingAuth || loading) {
+    return (
+      <div className={styles.container}>
+        <p style={{ color: "#ccc", textAlign: "center" }}>Cargando...</p>
+      </div>
+    );
+  }
 
   return (
     <>

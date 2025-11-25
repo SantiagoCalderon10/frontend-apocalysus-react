@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Verificar si está autenticado
-  const isAuthenticated = () => {
+const isAuthenticated = () => {
     return !!user && !!token;
   };
 

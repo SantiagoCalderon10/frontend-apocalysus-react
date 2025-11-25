@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styles from "./AdminPrincipal.module.css";
 import adminService from "../../api/services/adminService";
 import { LoaderAP } from "./../../components/common/Loader/LoaderAP";
-
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
     pedidos: 0,
@@ -30,6 +29,8 @@ export default function AdminDashboard() {
   if (loading) return <LoaderAP text="Cargando estadisticas"></LoaderAP>;
 
   return (
+
+    
     <div className={styles.container}>
       <h1 className={styles.title}>Panel de Administración</h1>
 
